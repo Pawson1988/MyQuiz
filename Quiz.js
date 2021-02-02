@@ -60,6 +60,15 @@ const question3 = new Question(
     32
 )
 
+const question4 = new Question(
+    "He _____ eating his lunch at 1pm yesterday",
+    "is",
+    "was",
+    "were",
+    "when",
+    "was"
+)
+
 let questionNumber = 0;
 let score = 0;
 const questions = [];
@@ -84,7 +93,6 @@ function startQuiz(){
     questionNumber = 0;
     score = 0;
     addNewQuestions();
-    // let randomNum1 = randomNum();
     questions[questionNumber].showQuestion();
 }
 
@@ -100,8 +108,11 @@ function checkQuestion(){
     if(this.textContent === resultDisplay.textContent){
         resultDisplay.textContent = "well done!";
         incrementScore();
+        if (questionNumber + 1 === questions.length){
+            resultDisplay.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+        }
     } else {
-        resultDisplay.textContent = "Try Again!"
+        resultDisplay.textContent = "Try Again!";
     }
 }
 
@@ -114,7 +125,7 @@ for(let answer of answers){
 
 //to add the questions to the array for when the quiz starts
 function addNewQuestions() {
-    questions.push(question1, question2, question3)
+    questions.push(question1, question2, question3, question4)
 }
 
 
