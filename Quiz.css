@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 90vw;
+    height: 90vh;
+    border: solid black 2px;
+    margin: auto 0;
+}
+
+.header, .scoreDiv, .questionDiv, .answersDiv, .resultDisplay {
+    margin: auto 10%;
+}
+
+.resultDisplay {
+    display: none;
+}
+
