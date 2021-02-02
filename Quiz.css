@@ -11,7 +11,7 @@ body {
     margin: auto 0;
 }
 
-.header, .scoreDiv, .questionDiv, .answersDiv, .resultDisplay, .gameOverMsg {
+.header, .scoreDiv, .questionDiv, .answersDiv, .resultDisplay, .gameOverMsg, .Q-Number, .Q-Number-Div {
     margin: auto 10%;
 }
 
