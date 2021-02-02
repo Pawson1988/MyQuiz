@@ -9,6 +9,7 @@ const resultDisplay = document.querySelector(".resultDisplay");
 const startButton = document.querySelector(".startButton");
 const answers = document.querySelectorAll(".answer");
 const nextButton = document.querySelector(".nextButton");
+const gameOverMsg = document.querySelector(".gameOverMsg");
 
 
 class Question {
@@ -71,7 +72,7 @@ const question4 = new Question(
 
 let questionNumber = 0;
 let score = 0;
-const questions = [];
+let questions = [];
 
 
 function incrementQuestionNumber(){
@@ -83,6 +84,7 @@ function incrementQuestionNumber(){
 function goToNextQuestion(){
     incrementQuestionNumber();
     questions[questionNumber].showQuestion();
+    resultDisplay.style.display = "none";
 }
 
 nextButton.addEventListener("click", goToNextQuestion);
@@ -90,8 +92,13 @@ nextButton.addEventListener("click", goToNextQuestion);
 // to set the quiz up initially
 
 function startQuiz(){
+    questions = [];
     questionNumber = 0;
     score = 0;
+    changeScoreDisplay();
+    resultDisplay.textContent = undefined;
+    resultDisplay.style.display = "none";
+    gameOverMsg.textContent = undefined;
     addNewQuestions();
     questions[questionNumber].showQuestion();
 }
@@ -103,13 +110,13 @@ startButton.addEventListener("click", () => {
 //to check whether the question is correct or not
 function checkQuestion(){
 
-    resultDisplay.style.display = "block";
+        resultDisplay.style.display = "block";
 
-    if(this.textContent === resultDisplay.textContent){
-        resultDisplay.textContent = "well done!";
-        incrementScore();
+        if(this.textContent === resultDisplay.textContent){
+            resultDisplay.textContent = "well done!";
+            incrementScore();
         if (questionNumber + 1 === questions.length){
-            resultDisplay.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+            gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
         }
     } else {
         resultDisplay.textContent = "Try Again!";
