@@ -120,6 +120,9 @@ function checkQuestion(){
         }
     } else {
         resultDisplay.textContent = "Try Again!";
+            if (questionNumber + 1 === questions.length){
+            gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+        }
     }
 }
 
