@@ -70,15 +70,17 @@ const questions = [];
 function incrementQuestionNumber(){
     questionNumber = questionNumber + 1;
 }
-// to set the quiz up initially
+
+// to move to the next question in the array. 
 
 function goToNextQuestion(){
-    // Needs to be done!!
     incrementQuestionNumber();
     questions[questionNumber].showQuestion();
 }
 
 nextButton.addEventListener("click", goToNextQuestion);
+
+// to set the quiz up initially
 
 function startQuiz(){
     questionNumber = 0;
