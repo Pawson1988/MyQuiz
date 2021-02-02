@@ -10,6 +10,7 @@ const startButton = document.querySelector(".startButton");
 const answers = document.querySelectorAll(".answer");
 const nextButton = document.querySelector(".nextButton");
 const gameOverMsg = document.querySelector(".gameOverMsg");
+const qNumber = document.querySelector(".Q-Number");
 
 
 class Question {
@@ -70,20 +71,21 @@ const question4 = new Question(
     "was"
 )
 
-let questionNumber = 0;
+let questionNumber = 1;
 let score = 0;
 let questions = [];
 
 
-function incrementQuestionNumber(){
-    questionNumber = questionNumber + 1;
-}
+
 
 // to move to the next question in the array. 
 
 function goToNextQuestion(){
+    if(questionNumber  !== questions.length){
     incrementQuestionNumber();
-    questions[questionNumber].showQuestion();
+    }
+    
+    questions[questionNumber - 1].showQuestion();
     resultDisplay.style.display = "none";
 }
 
@@ -93,14 +95,15 @@ nextButton.addEventListener("click", goToNextQuestion);
 
 function startQuiz(){
     questions = [];
-    questionNumber = 0;
+    questionNumber = 1;
     score = 0;
     changeScoreDisplay();
+    changeQNumberDisplay();
     resultDisplay.textContent = undefined;
     resultDisplay.style.display = "none";
     gameOverMsg.textContent = undefined;
     addNewQuestions();
-    questions[questionNumber].showQuestion();
+    questions[questionNumber - 1].showQuestion();
 }
 
 startButton.addEventListener("click", () => {
@@ -115,12 +118,12 @@ function checkQuestion(){
         if(this.textContent === resultDisplay.textContent){
             resultDisplay.textContent = "well done!";
             incrementScore();
-        if (questionNumber + 1 === questions.length){
+        if (questionNumber  === questions.length){
             gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
         }
     } else {
         resultDisplay.textContent = "Try Again!";
-            if (questionNumber + 1 === questions.length){
+            if (questionNumber === questions.length){
             gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
         }
     }
@@ -138,9 +141,14 @@ function addNewQuestions() {
     questions.push(question1, question2, question3, question4)
 }
 
+// below: functions to increment the score and question number and then to update their respective displays
 
 function changeScoreDisplay(){
     scoreDisplay.textContent = score;
+}
+
+function changeQNumberDisplay(){
+    qNumber.textContent = questionNumber;
 }
 
 function incrementScore() {
@@ -148,7 +156,10 @@ function incrementScore() {
     changeScoreDisplay();
 }
 
-
+function incrementQuestionNumber(){
+    questionNumber = questionNumber + 1;
+    changeQNumberDisplay();
+}
 
 
 
