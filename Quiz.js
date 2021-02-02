@@ -63,9 +63,7 @@ const question3 = new Question(
 let questionNumber = 0;
 let score = 0;
 const questions = [];
-//const randomNum = function(){ 
-    //return Math.floor(Math.random() * questions.length)
-//}
+
 
 function incrementQuestionNumber(){
     questionNumber = questionNumber + 1;
