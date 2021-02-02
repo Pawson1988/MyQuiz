@@ -9,6 +9,7 @@ const resultDisplay = document.querySelector(".resultDisplay");
 const startButton = document.querySelector(".startButton");
 const answers = document.querySelectorAll(".answer");
 const nextButton = document.querySelector(".nextButton");
+const gameOverMsg = document.querySelector(".gameOverMsg");
 
 
 class Question {
@@ -60,31 +61,45 @@ const question3 = new Question(
     32
 )
 
+const question4 = new Question(
+    "He _____ eating his lunch at 1pm yesterday",
+    "is",
+    "was",
+    "were",
+    "when",
+    "was"
+)
+
 let questionNumber = 0;
 let score = 0;
-const questions = [];
-//const randomNum = function(){ 
-    //return Math.floor(Math.random() * questions.length)
-//}
+let questions = [];
+
 
 function incrementQuestionNumber(){
     questionNumber = questionNumber + 1;
 }
-// to set the quiz up initially
+
+// to move to the next question in the array. 
 
 function goToNextQuestion(){
-    // Needs to be done!!
     incrementQuestionNumber();
     questions[questionNumber].showQuestion();
+    resultDisplay.style.display = "none";
 }
 
 nextButton.addEventListener("click", goToNextQuestion);
 
+// to set the quiz up initially
+
 function startQuiz(){
+    questions = [];
     questionNumber = 0;
     score = 0;
+    changeScoreDisplay();
+    resultDisplay.textContent = undefined;
+    resultDisplay.style.display = "none";
+    gameOverMsg.textContent = undefined;
     addNewQuestions();
-    // let randomNum1 = randomNum();
     questions[questionNumber].showQuestion();
 }
 
@@ -95,13 +110,16 @@ startButton.addEventListener("click", () => {
 //to check whether the question is correct or not
 function checkQuestion(){
 
-    resultDisplay.style.display = "block";
+        resultDisplay.style.display = "block";
 
-    if(this.textContent === resultDisplay.textContent){
-        resultDisplay.textContent = "well done!";
-        incrementScore();
+        if(this.textContent === resultDisplay.textContent){
+            resultDisplay.textContent = "well done!";
+            incrementScore();
+        if (questionNumber + 1 === questions.length){
+            gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+        }
     } else {
-        resultDisplay.textContent = "Try Again!"
+        resultDisplay.textContent = "Try Again!";
     }
 }
 
@@ -114,7 +132,7 @@ for(let answer of answers){
 
 //to add the questions to the array for when the quiz starts
 function addNewQuestions() {
-    questions.push(question1, question2, question3)
+    questions.push(question1, question2, question3, question4)
 }
 
 
