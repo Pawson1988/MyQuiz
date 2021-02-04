@@ -1,4 +1,3 @@
-
 const questionShow = document.querySelector(".question");
 const answer1 = document.querySelector(".answer1");
 const answer2 = document.querySelector(".answer2");
@@ -6,11 +5,13 @@ const answer3 = document.querySelector(".answer3");
 const answer4 = document.querySelector(".answer4");
 const scoreDisplay = document.querySelector(".scoreDisplay");
 const resultDisplay = document.querySelector(".resultDisplay");
+const rightWrongDisplay = document.querySelector(".rightWrongDisplay");
 const startButton = document.querySelector(".startButton");
 const answers = document.querySelectorAll(".answer");
 const nextButton = document.querySelector(".nextButton");
 const gameOverMsg = document.querySelector(".gameOverMsg");
 const qNumber = document.querySelector(".Q-Number");
+
 
 
 class Question {
@@ -71,11 +72,19 @@ const question4 = new Question(
     "was"
 )
 
+const question5 = new Question(
+    "How often does David play on his computer?",
+    "always",
+    "never",
+    "sometimes",
+    "usually",
+    "sometimes"
+)
+
+let buttonClicked = false;
 let questionNumber = 1;
 let score = 0;
 let questions = [];
-
-
 
 
 // to move to the next question in the array. 
@@ -84,9 +93,11 @@ function goToNextQuestion(){
     if(questionNumber  !== questions.length){
     incrementQuestionNumber();
     }
-    
+
+    buttonClicked = false;
     questions[questionNumber - 1].showQuestion();
-    resultDisplay.style.display = "none";
+    resultDisplay.style.display = "hide";
+    rightWrongDisplay.style.display = "none"; 
 }
 
 nextButton.addEventListener("click", goToNextQuestion);
@@ -100,10 +111,12 @@ function startQuiz(){
     changeScoreDisplay();
     changeQNumberDisplay();
     resultDisplay.textContent = undefined;
-    resultDisplay.style.display = "none";
+    resultDisplay.style.display = "hide";
     gameOverMsg.textContent = undefined;
+    rightWrongDisplay.textContent = undefined;
     addNewQuestions();
     questions[questionNumber - 1].showQuestion();
+    buttonClicked = false;
 }
 
 startButton.addEventListener("click", () => {
@@ -113,20 +126,27 @@ startButton.addEventListener("click", () => {
 //to check whether the question is correct or not
 function checkQuestion(){
 
-        resultDisplay.style.display = "block";
+        rightWrongDisplay.style.display = "block";
 
-        if(this.textContent === resultDisplay.textContent){
-            resultDisplay.textContent = "well done!";
+        if(this.textContent === resultDisplay.textContent && buttonClicked === false){
+            rightWrongDisplay.textContent = "Well done!";
             incrementScore();
+            buttonClicked = true;
+            
         if (questionNumber  === questions.length){
             gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+            buttonClicked = true;
         }
-    } else {
-        resultDisplay.textContent = "Try Again!";
+
+    } else if (questionNumber !== questions.length && buttonClicked === false) {
+        rightWrongDisplay.textContent = "Try Again!";
+        buttonClicked = true;
+        }
+
             if (questionNumber === questions.length){
             gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+            buttonClicked = true;
         }
-    }
 }
 
 
@@ -138,7 +158,7 @@ for(let answer of answers){
 
 //to add the questions to the array for when the quiz starts
 function addNewQuestions() {
-    questions.push(question1, question2, question3, question4)
+    questions.push(question1, question2, question3, question4, question5)
 }
 
 // below: functions to increment the score and question number and then to update their respective displays
@@ -160,6 +180,5 @@ function incrementQuestionNumber(){
     questionNumber = questionNumber + 1;
     changeQNumberDisplay();
 }
-
 
 
