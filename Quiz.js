@@ -136,7 +136,8 @@ function checkQuestion(){
             if (questionNumber  === questions.length){
                 gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
                 buttonClicked = true;
-                localStorage.setItem("endScore", score)
+                localStorage.setItem("endScore", score);
+                localStorage.setItem("outOf", questions.length);
                 setTimeout(() => {
                     window.location.assign('endQuizScreen.html');
                 }, 2000);
@@ -151,7 +152,8 @@ function checkQuestion(){
                 gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
                 buttonClicked = true;
                 // to go to the end screen to siplay the final score after 2 seconds
-                localStorage.setItem("endScore", score)
+                localStorage.setItem("endScore", score);
+                localStorage.setItem("outOf", questions.length);
                 setTimeout(() => {
                 window.location.assign('endQuizScreen.html');
                 }, 2000);
