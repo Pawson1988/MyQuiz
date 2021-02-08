@@ -133,19 +133,28 @@ function checkQuestion(){
             incrementScore();
             buttonClicked = true;
             
-        if (questionNumber  === questions.length){
-            gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
-            buttonClicked = true;
+            if (questionNumber  === questions.length){
+                gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+                buttonClicked = true;
+                localStorage.setItem("endScore", score)
+                setTimeout(() => {
+                    window.location.assign('endQuizScreen.html');
+                }, 2000);
         }
 
-    } else if (questionNumber !== questions.length && buttonClicked === false) {
-        rightWrongDisplay.textContent = "Try Again!";
-        buttonClicked = true;
+        } else if (questionNumber !== questions.length && buttonClicked === false) {
+            rightWrongDisplay.textContent = "Try Again!";
+            buttonClicked = true;    
         }
 
             if (questionNumber === questions.length){
-            gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
-            buttonClicked = true;
+                gameOverMsg.textContent = `Quiz finished, you scored ${score} out of ${questions.length}`;
+                buttonClicked = true;
+                // to go to the end screen to siplay the final score after 2 seconds
+                localStorage.setItem("endScore", score)
+                setTimeout(() => {
+                window.location.assign('endQuizScreen.html');
+                }, 2000);
         }
 }
 
@@ -181,4 +190,4 @@ function incrementQuestionNumber(){
     changeQNumberDisplay();
 }
 
-
+startQuiz();
