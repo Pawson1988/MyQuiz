@@ -91,7 +91,6 @@ let score = 0;
 let questLen = questionsArray.length;
 
 // to move to the next question in the array. 
-
 function goToNextQuestion(){
     if(questionNumber  !== questLen){
     incrementQuestionNumber();
